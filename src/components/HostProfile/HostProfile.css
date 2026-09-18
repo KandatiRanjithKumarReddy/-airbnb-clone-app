@@ -1,0 +1,122 @@
+.host-profile__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 24px;
+}
+
+.host-profile__card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.host-profile__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  background: #6B8E23;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.host-profile__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.host-profile__name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.host-profile__superhost {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.host-profile__stats {
+  display: flex;
+  gap: 24px;
+}
+
+.host-profile__stat {
+  text-align: left;
+  padding: 0 16px;
+  border-left: 1px solid var(--border-light);
+}
+
+.host-profile__stat:first-child {
+  border-left: none;
+}
+
+.host-profile__stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+}
+
+.host-profile__stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.host-profile__stat-stars {
+  margin-top: 2px;
+}
+
+/* Details */
+.host-profile__details {
+  max-width: 600px;
+}
+
+.host-profile__about {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.host-profile__response {
+  margin-bottom: 16px;
+}
+
+.host-profile__response p {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.host-profile__message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 23px;
+  border: 1px solid var(--text-primary);
+  border-radius: var(--border-radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  transition: background-color var(--transition-fast);
+  margin-bottom: 16px;
+}
+
+.host-profile__message:hover {
+  background-color: var(--bg-gray);
+}
+
+.host-profile__disclaimer {
+  padding: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}

@@ -1,0 +1,127 @@
+.photo-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg-white);
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.photo-tour__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 24px;
+  background: var(--bg-white);
+}
+
+.photo-tour__close {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.photo-tour__close:hover {
+  background-color: var(--bg-gray);
+}
+
+.photo-tour__content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* Thumbnails */
+.photo-tour__thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.photo-tour__thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-tour__thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 52px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  background: var(--bg-gray);
+  transition: border-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.photo-tour__thumb:hover {
+  border-color: var(--text-primary);
+  opacity: 0.8;
+}
+
+.photo-tour__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Photo sections */
+.photo-tour__photo-section {
+  margin-bottom: 24px;
+}
+
+.photo-tour__room-label {
+  margin-bottom: 12px;
+}
+
+.photo-tour__room-label h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.photo-tour__room-caption {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.photo-tour__photo-wrapper {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 0;
+  background: var(--bg-gray);
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  transition: opacity var(--transition-fast);
+}
+
+.photo-tour__photo-wrapper:hover {
+  opacity: 0.92;
+}
+
+.photo-tour__photo-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius-sm);
+}

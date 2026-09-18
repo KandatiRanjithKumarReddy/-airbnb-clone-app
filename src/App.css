@@ -1,0 +1,72 @@
+/* ============================================
+   APP LAYOUT
+   ============================================ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding-top: 24px;
+}
+
+/* Title Section */
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.title-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.title-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  transition: background-color var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.title-action-btn:hover {
+  background-color: var(--bg-gray);
+}
+
+/* Two Column Content Layout */
+.content-layout {
+  display: grid;
+  grid-template-columns: 1fr 370px;
+  gap: 80px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+.content-layout__left {
+  min-width: 0;
+}
+
+.content-layout__right {
+  position: relative;
+}

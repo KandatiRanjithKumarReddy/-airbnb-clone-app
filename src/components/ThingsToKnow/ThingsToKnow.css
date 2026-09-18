@@ -1,0 +1,42 @@
+.things-to-know__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.things-to-know__heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.things-to-know__list {
+  list-style: none;
+  padding: 0;
+}
+
+.things-to-know__list li {
+  font-size: 16px;
+  color: var(--text-primary);
+  padding: 6px 0;
+}
+
+.things-to-know__list-desc {
+  font-size: 14px !important;
+  color: var(--text-secondary) !important;
+}
+
+.things-to-know__more {
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 8px;
+  color: var(--text-primary);
+}
+
+.things-to-know__more:hover {
+  color: var(--text-secondary);
+}

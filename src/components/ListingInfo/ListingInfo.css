@@ -1,0 +1,288 @@
+/* Title Bar */
+.listing-info__title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.listing-info__title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.listing-info__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.listing-info__action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  transition: background-color var(--transition-fast);
+}
+
+.listing-info__action-btn:hover {
+  background-color: var(--bg-gray);
+}
+
+/* Property Type */
+.listing-info__type {
+  margin-bottom: 24px;
+}
+
+.listing-info__type-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.listing-info__specs {
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+/* Guest Favourite Badge */
+.listing-info__badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--guest-fav-border);
+  border-radius: var(--border-radius-md);
+  padding: 16px 20px;
+  margin-bottom: 8px;
+}
+
+.listing-info__badge-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.listing-info__badge-icon {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.listing-info__badge-sparkle {
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.listing-info__badge-text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.listing-info__badge-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 220px;
+}
+
+.listing-info__badge-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.listing-info__badge-rating {
+  text-align: center;
+}
+
+.listing-info__badge-rating-number {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.listing-info__badge-stars {
+  display: flex;
+  gap: 1px;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.listing-info__badge-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border-color);
+}
+
+.listing-info__badge-reviews {
+  text-align: center;
+}
+
+.listing-info__badge-review-count {
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+}
+
+.listing-info__badge-review-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-decoration: underline;
+}
+
+/* Host */
+.listing-info__host {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.listing-info__host-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #6B8E23;
+}
+
+.listing-info__host-avatar--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listing-info__host-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listing-info__host-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.listing-info__host-years {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Highlights */
+.listing-info__highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listing-info__highlight {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.listing-info__highlight-icon {
+  flex-shrink: 0;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.listing-info__highlight-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.listing-info__highlight-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Translation */
+.listing-info__translation {
+  padding: 12px 16px;
+  background: var(--bg-gray);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+/* Description */
+.listing-info__description {
+  margin-bottom: 0;
+}
+
+.listing-info__description-text {
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-line;
+  color: var(--text-primary);
+}
+
+.listing-info__show-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.listing-info__show-more:hover {
+  color: var(--text-secondary);
+}
+
+/* Where you'll sleep */
+.listing-info__sleep-grid {
+  display: flex;
+  gap: 16px;
+}
+
+.listing-info__sleep-card {
+  flex: 1;
+  max-width: 300px;
+}
+
+.listing-info__sleep-image {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.listing-info__sleep-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listing-info__sleep-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.listing-info__sleep-details {
+  font-size: 14px;
+  color: var(--text-secondary);
+}

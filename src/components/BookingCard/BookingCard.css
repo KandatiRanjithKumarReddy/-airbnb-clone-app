@@ -1,0 +1,200 @@
+.booking-card {
+  position: sticky;
+  top: 96px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  background: var(--bg-white);
+}
+
+/* Promo Banner */
+.booking-card__promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 20px;
+}
+
+.booking-card__promo-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.booking-card__promo-icon {
+  color: var(--green-tag);
+  flex-shrink: 0;
+}
+
+.booking-card__promo-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.booking-card__promo-link {
+  font-size: 12px;
+  color: var(--text-primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.booking-card__promo-claim {
+  padding: 6px 12px;
+  border: 1px solid var(--text-primary);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  transition: background-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.booking-card__promo-claim:hover {
+  background-color: var(--bg-gray);
+}
+
+/* Price */
+.booking-card__price {
+  margin-bottom: 20px;
+}
+
+.booking-card__price-amount {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.booking-card__price-period {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+/* Dates */
+.booking-card__dates {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+  overflow: hidden;
+}
+
+.booking-card__date-field {
+  flex: 1;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.booking-card__date-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.booking-card__date-value {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.booking-card__date-divider {
+  width: 1px;
+  background: var(--border-color);
+}
+
+/* Guests */
+.booking-card__guests {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+  cursor: pointer;
+  background: none;
+  text-align: left;
+}
+
+.booking-card__guests-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  display: block;
+}
+
+.booking-card__chevron {
+  transition: transform var(--transition-normal);
+}
+
+.booking-card__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Cancellation */
+.booking-card__cancellation {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 16px 0 4px;
+}
+
+/* Reserve Button */
+.booking-card__reserve {
+  width: 100%;
+  padding: 14px;
+  background: var(--airbnb-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: opacity var(--transition-fast);
+}
+
+.booking-card__reserve:hover {
+  opacity: 0.9;
+}
+
+.booking-card__reserve:active {
+  transform: scale(0.98);
+}
+
+/* Disclaimer */
+.booking-card__disclaimer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 12px;
+}
+
+/* Report */
+.booking-card__report {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  transition: color var(--transition-fast);
+}
+
+.booking-card__report:hover {
+  color: var(--text-primary);
+}
