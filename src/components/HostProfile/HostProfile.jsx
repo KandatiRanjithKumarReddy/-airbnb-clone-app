@@ -11,7 +11,7 @@ export default function HostProfile({ host, rating, reviewCount }) {
         <div className="host-profile__card-left">
           <div className="host-profile__avatar">
             <img
-              src="https://a0.muscache.com/im/pictures/user/User-524803978/original/f9acc197-59e5-47a8-a523-fa498188540e.jpeg"
+              src="https://ui-avatars.com/api/?name=Mirashya+Homes&background=6B8E23&color=fff&size=128"
               alt={host.name}
               onError={(e) => {
                 e.target.style.display = 'none';

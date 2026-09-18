@@ -62,7 +62,7 @@ export default function ListingInfo({ listing }) {
       <div className="listing-info__host">
         <div className="listing-info__host-avatar">
           <img
-            src="https://a0.muscache.com/im/pictures/user/User-524803978/original/f9acc197-59e5-47a8-a523-fa498188540e.jpeg"
+            src="https://ui-avatars.com/api/?name=Mirashya+Homes&background=6B8E23&color=fff&size=128"
             alt={`${listing.host.name} avatar`}
             onError={(e) => {
               e.target.style.display = 'none';
