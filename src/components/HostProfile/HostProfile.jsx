@@ -1,5 +1,7 @@
 import './HostProfile.css';
-import { Star, Shield, MessageCircle } from 'lucide-react';
+import { Shield, MessageCircle } from 'lucide-react';
+import Avatar from '../common/Avatar';
+import StarRating from '../common/StarRating';
 
 export default function HostProfile({ host, rating, reviewCount }) {
   return (
@@ -10,13 +12,10 @@ export default function HostProfile({ host, rating, reviewCount }) {
       <div className="host-profile__card">
         <div className="host-profile__card-left">
           <div className="host-profile__avatar">
-            <img
-              src="https://ui-avatars.com/api/?name=Mirashya+Homes&background=6B8E23&color=fff&size=128"
+            <Avatar
+              src={host.avatar}
               alt={host.name}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.parentElement.innerHTML = '<span style="color:white;font-size:24px;font-weight:700">M</span>';
-              }}
+              initial={host.name ? host.name.charAt(0) : 'M'}
             />
           </div>
           <div>
@@ -39,7 +38,7 @@ export default function HostProfile({ host, rating, reviewCount }) {
             <span className="host-profile__stat-value">{rating}</span>
             <span className="host-profile__stat-label">Rating</span>
             <div className="host-profile__stat-stars">
-              <Star size={10} fill="#000" color="#000" />
+              <StarRating rating={rating} size={10} />
             </div>
           </div>
           <div className="host-profile__stat">

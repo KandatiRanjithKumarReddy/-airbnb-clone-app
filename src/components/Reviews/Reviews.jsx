@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './Reviews.css';
-import { Star } from 'lucide-react';
+import Avatar from '../common/Avatar';
+import StarRating from '../common/StarRating';
 
 export default function Reviews({ reviews, reviewCategories, rating, reviewCount }) {
   const [expandedReviews, setExpandedReviews] = useState({});
@@ -50,43 +51,37 @@ export default function Reviews({ reviews, reviewCategories, rating, reviewCount
       {/* Review Cards */}
       <div className="reviews__grid">
         {reviews.map((review) => {
-          const isExpanded = expandedReviews[review.id];
+          const isExpanded = !!expandedReviews[review.id];
           const shouldTruncate = review.text.length > 150;
           const displayText = shouldTruncate && !isExpanded
-            ? review.text.slice(0, 150) + '...'
+            ? `${review.text.slice(0, 150)}...`
             : review.text;
 
           return (
             <div key={review.id} className="reviews__card">
               <div className="reviews__card-header">
                 <div className="reviews__card-avatar">
-                  {review.avatar ? (
-                    <img src={review.avatar} alt={review.name} />
-                  ) : (
-                    <span className="reviews__card-avatar-initial">
-                      {review.name.charAt(0)}
-                    </span>
-                  )}
+                  <Avatar
+                    src={review.avatar}
+                    alt={review.name}
+                    initial={review.name.charAt(0)}
+                    fallbackBg="#222222"
+                  />
                 </div>
                 <div>
                   <p className="reviews__card-name">{review.name}</p>
                   <p className="reviews__card-meta">{review.yearsOnAirbnb}</p>
                 </div>
               </div>
+
               <div className="reviews__card-rating-date">
                 <div className="reviews__card-stars">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={10}
-                      fill={i < review.rating ? '#000' : 'none'}
-                      color="#000"
-                    />
-                  ))}
+                  <StarRating rating={review.rating} size={10} color="#000" />
                 </div>
                 <span className="reviews__card-dot">·</span>
                 <span className="reviews__card-date">{review.date}</span>
               </div>
+
               <p className="reviews__card-text">{displayText}</p>
               {shouldTruncate && (
                 <button

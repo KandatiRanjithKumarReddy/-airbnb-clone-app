@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { listingData } from './data/listingData';
 import Header from './components/Header/Header';
@@ -20,65 +20,89 @@ function App() {
   const [showLightbox, setShowLightbox] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
-  const handleShowAllPhotos = useCallback((startIndex = 0) => {
+  const handleShowAllPhotos = (startIndex = 0) => {
     setCurrentPhotoIndex(startIndex);
     setShowPhotoTour(true);
-  }, []);
+  };
 
-  const handlePhotoClick = useCallback((index) => {
+  const handlePhotoClick = (index) => {
     setCurrentPhotoIndex(index);
     setShowLightbox(true);
-  }, []);
+  };
 
-  const handleClosePhotoTour = useCallback(() => {
-    setShowPhotoTour(false);
-  }, []);
+  const handleClosePhotoTour = () => setShowPhotoTour(false);
+  const handleCloseLightbox = () => setShowLightbox(false);
 
-  const handleCloseLightbox = useCallback(() => {
-    setShowLightbox(false);
-  }, []);
+  const handlePrevPhoto = () => {
+    setCurrentPhotoIndex((prev) => Math.max(0, prev - 1));
+  };
 
-  const handlePrevPhoto = useCallback(() => {
+  const handleNextPhoto = () => {
     setCurrentPhotoIndex((prev) =>
-      prev > 0 ? prev - 1 : prev
+      Math.min(listingData.photos.length - 1, prev + 1)
     );
-  }, []);
+  };
 
-  const handleNextPhoto = useCallback(() => {
-    setCurrentPhotoIndex((prev) =>
-      prev < listingData.photos.length - 1 ? prev + 1 : prev
-    );
-  }, []);
-
-  const scrollToBooking = useCallback(() => {
+  const scrollToBooking = () => {
     const el = document.getElementById('booking-card');
     if (el) {
       const offset = 96;
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
-  }, []);
+  };
 
   return (
     <div className="app">
-      <a href="#main-content" className="sr-only">Skip to main content</a>
+      <a href="#main-content" className="sr-only">
+        Skip to main content
+      </a>
 
-      <Header onReserveClick={scrollToBooking} />
+      <Header
+        onReserveClick={scrollToBooking}
+        price={listingData.price}
+        rating={listingData.rating}
+        reviewCount={listingData.reviewCount}
+      />
 
       <main id="main-content" className="main">
         {/* Title + Share/Save (above gallery) */}
         <div className="container title-section">
           <h1 className="page-title">{listingData.title}</h1>
           <div className="title-actions">
-            <button className="title-action-btn" aria-label="Share this listing">
-              <svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M27 18v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9M16 3v19M8 11l8-8 8 8"/>
+            <button
+              type="button"
+              className="title-action-btn"
+              aria-label="Share this listing"
+            >
+              <svg
+                viewBox="0 0 32 32"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M27 18v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9M16 3v19M8 11l8-8 8 8" />
               </svg>
               <span>Share</span>
             </button>
-            <button className="title-action-btn" aria-label="Save this listing">
-              <svg viewBox="0 0 32 32" width="16" height="16" fill="#FF385C" stroke="#FF385C" strokeWidth="2">
-                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 00-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 00-9.9 0A6.98 6.98 0 002 11c0 7 7 12.27 14 17z"/>
+            <button
+              type="button"
+              className="title-action-btn"
+              aria-label="Save this listing"
+            >
+              <svg
+                viewBox="0 0 32 32"
+                width="16"
+                height="16"
+                fill="#FF385C"
+                stroke="#FF385C"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 00-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 00-9.9 0A6.98 6.98 0 002 11c0 7 7 12.27 14 17z" />
               </svg>
               <span>Saved</span>
             </button>
@@ -107,6 +131,7 @@ function App() {
               <Calendar
                 checkIn={listingData.dates.checkInDate}
                 checkOut={listingData.dates.checkOutDate}
+                location={listingData.location.split(',')[0]}
               />
             </div>
 
@@ -116,8 +141,7 @@ function App() {
                 price={listingData.price}
                 dates={listingData.dates}
                 guests={listingData.guests}
-                rating={listingData.rating}
-                reviewCount={listingData.reviewCount}
+                maxGuests={listingData.specs.guests}
                 cancellation={listingData.cancellation}
               />
             </div>
@@ -133,10 +157,7 @@ function App() {
             reviewCount={listingData.reviewCount}
           />
 
-          <Map
-            map={listingData.map}
-            location={listingData.locationFull}
-          />
+          <Map map={listingData.map} location={listingData.locationFull} />
 
           <HostProfile
             host={listingData.host}

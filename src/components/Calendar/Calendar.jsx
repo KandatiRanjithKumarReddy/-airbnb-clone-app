@@ -2,147 +2,155 @@ import { useState } from 'react';
 import './Calendar.css';
 import { ChevronLeft, ChevronRight, Keyboard } from 'lucide-react';
 
-const DAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-const MONTHS = [
+const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-function getDaysInMonth(year, month) {
-  return new Date(year, month + 1, 0).getDate();
+function isSameDay(d1, d2) {
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+  );
 }
 
-function getFirstDayOfMonth(year, month) {
-  return new Date(year, month, 1).getDay();
+function MonthView({ year, month, checkIn, checkOut }) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = new Date(year, month, 1).getDay();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const emptyCells = Array.from({ length: startDay }, (_, i) => (
+    <div key={`empty-${i}`} className="calendar__day calendar__day--empty" />
+  ));
+
+  const dayCells = Array.from({ length: daysInMonth }, (_, index) => {
+    const day = index + 1;
+    const date = new Date(year, month, day);
+
+    const isStart = isSameDay(date, checkIn);
+    const isEnd = isSameDay(date, checkOut);
+    const inRange = date > checkIn && date < checkOut;
+    const isPast = date < today;
+
+    const classNames = [
+      'calendar__day',
+      isStart && 'calendar__day--start',
+      isEnd && 'calendar__day--end',
+      inRange && 'calendar__day--in-range',
+      isPast && !isStart && !isEnd && 'calendar__day--disabled',
+    ].filter(Boolean).join(' ');
+
+    return (
+      <div key={day} className={classNames}>
+        <span className="calendar__day-number">{day}</span>
+      </div>
+    );
+  });
+
+  return (
+    <div className="calendar__month">
+      <h3 className="calendar__month-title">
+        {MONTH_NAMES[month]} {year}
+      </h3>
+      <div className="calendar__days-header">
+        {WEEKDAYS.map((day, i) => (
+          <div key={i} className="calendar__day-name">{day}</div>
+        ))}
+      </div>
+      <div className="calendar__days-grid">
+        {emptyCells}
+        {dayCells}
+      </div>
+    </div>
+  );
 }
 
-export default function Calendar({ checkIn, checkOut }) {
-  const [baseMonth, setBaseMonth] = useState(checkIn.getMonth());
-  const [baseYear, setBaseYear] = useState(checkIn.getFullYear());
-
-  const secondMonth = baseMonth === 11 ? 0 : baseMonth + 1;
-  const secondYear = baseMonth === 11 ? baseYear + 1 : baseYear;
+export default function Calendar({ checkIn, checkOut, location = 'Candolim' }) {
+  const [currentDate, setCurrentDate] = useState(
+    () => new Date(checkIn.getFullYear(), checkIn.getMonth(), 1)
+  );
 
   const prevMonth = () => {
-    if (baseMonth === 0) {
-      setBaseMonth(11);
-      setBaseYear(baseYear - 1);
-    } else {
-      setBaseMonth(baseMonth - 1);
-    }
+    setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const nextMonth = () => {
-    if (baseMonth === 11) {
-      setBaseMonth(0);
-      setBaseYear(baseYear + 1);
-    } else {
-      setBaseMonth(baseMonth + 1);
-    }
+    setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
-  const isInRange = (year, month, day) => {
-    const date = new Date(year, month, day);
-    return date > checkIn && date < checkOut;
-  };
+  const firstYear = currentDate.getFullYear();
+  const firstMonth = currentDate.getMonth();
 
-  const isCheckIn = (year, month, day) => {
-    return (
-      year === checkIn.getFullYear() &&
-      month === checkIn.getMonth() &&
-      day === checkIn.getDate()
-    );
-  };
+  const secondDate = new Date(firstYear, firstMonth + 1, 1);
+  const secondYear = secondDate.getFullYear();
+  const secondMonth = secondDate.getMonth();
 
-  const isCheckOut = (year, month, day) => {
-    return (
-      year === checkOut.getFullYear() &&
-      month === checkOut.getMonth() &&
-      day === checkOut.getDate()
-    );
-  };
+  const nights = Math.max(
+    0,
+    Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
+  );
 
-  const isPast = (year, month, day) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return new Date(year, month, day) < today;
-  };
-
-  const renderMonth = (year, month) => {
-    const daysInMonth = getDaysInMonth(year, month);
-    const firstDay = getFirstDayOfMonth(year, month);
-    const days = [];
-
-    // Empty cells for days before the first day
-    for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="calendar__day calendar__day--empty"></div>);
-    }
-
-    // Days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const isStart = isCheckIn(year, month, day);
-      const isEnd = isCheckOut(year, month, day);
-      const inRange = isInRange(year, month, day);
-      const past = isPast(year, month, day);
-
-      let className = 'calendar__day';
-      if (isStart) className += ' calendar__day--start';
-      if (isEnd) className += ' calendar__day--end';
-      if (inRange) className += ' calendar__day--in-range';
-      if (past && !isStart && !isEnd) className += ' calendar__day--disabled';
-
-      days.push(
-        <div key={day} className={className}>
-          <span className="calendar__day-number">{day}</span>
-        </div>
-      );
-    }
-
-    return (
-      <div className="calendar__month">
-        <h3 className="calendar__month-title">
-          {MONTHS[month]} {year}
-        </h3>
-        <div className="calendar__days-header">
-          {DAYS.map((day, i) => (
-            <div key={i} className="calendar__day-name">{day}</div>
-          ))}
-        </div>
-        <div className="calendar__days-grid">
-          {days}
-        </div>
-      </div>
-    );
-  };
+  const formatDate = (date) =>
+    date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
   return (
     <section className="calendar-section">
       <hr className="divider" />
-      <h2 className="calendar-section__title">5 nights in Candolim</h2>
+      <h2 className="calendar-section__title">
+        {nights} nights in {location}
+      </h2>
       <p className="calendar-section__subtitle">
-        18 Oct 2026 - 23 Oct 2026
+        {formatDate(checkIn)} - {formatDate(checkOut)}
       </p>
 
       <div className="calendar">
-        <button className="calendar__nav calendar__nav--prev" onClick={prevMonth} aria-label="Previous month">
+        <button
+          type="button"
+          className="calendar__nav calendar__nav--prev"
+          onClick={prevMonth}
+          aria-label="Previous month"
+        >
           <ChevronLeft size={20} />
         </button>
 
         <div className="calendar__months">
-          {renderMonth(baseYear, baseMonth)}
-          {renderMonth(secondYear, secondMonth)}
+          <MonthView
+            year={firstYear}
+            month={firstMonth}
+            checkIn={checkIn}
+            checkOut={checkOut}
+          />
+          <MonthView
+            year={secondYear}
+            month={secondMonth}
+            checkIn={checkIn}
+            checkOut={checkOut}
+          />
         </div>
 
-        <button className="calendar__nav calendar__nav--next" onClick={nextMonth} aria-label="Next month">
+        <button
+          type="button"
+          className="calendar__nav calendar__nav--next"
+          onClick={nextMonth}
+          aria-label="Next month"
+        >
           <ChevronRight size={20} />
         </button>
       </div>
 
       <div className="calendar-section__footer">
-        <button className="calendar-section__keyboard" aria-label="Keyboard shortcuts">
+        <button
+          type="button"
+          className="calendar-section__keyboard"
+          aria-label="Keyboard shortcuts"
+        >
           <Keyboard size={20} />
         </button>
-        <button className="calendar-section__clear">Clear dates</button>
+        <button type="button" className="calendar-section__clear">Clear dates</button>
       </div>
     </section>
   );

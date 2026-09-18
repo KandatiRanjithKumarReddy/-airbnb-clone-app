@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './ListingInfo.css';
-import { Star, Tent, Snowflake, KeyRound } from 'lucide-react';
+import { Tent, Snowflake, KeyRound } from 'lucide-react';
+import Avatar from '../common/Avatar';
+import StarRating from '../common/StarRating';
 
 const iconMap = {
   tent: Tent,
@@ -14,7 +16,7 @@ export default function ListingInfo({ listing }) {
   const descriptionPreview = listing.description.slice(0, 280);
 
   return (
-    <div className="listing-info" id="photos-section">
+    <div className="listing-info">
       {/* Property Type & Specs */}
       <div className="listing-info__type">
         <h2 className="listing-info__type-title">
@@ -42,9 +44,7 @@ export default function ListingInfo({ listing }) {
             <div className="listing-info__badge-rating">
               <span className="listing-info__badge-rating-number">{listing.rating}</span>
               <div className="listing-info__badge-stars">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={10} fill="#000" color="#000" />
-                ))}
+                <StarRating rating={listing.rating} size={10} />
               </div>
             </div>
             <div className="listing-info__badge-divider"></div>
@@ -61,13 +61,10 @@ export default function ListingInfo({ listing }) {
       {/* Host */}
       <div className="listing-info__host">
         <div className="listing-info__host-avatar">
-          <img
-            src="https://ui-avatars.com/api/?name=Mirashya+Homes&background=6B8E23&color=fff&size=128"
-            alt={`${listing.host.name} avatar`}
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.parentElement.classList.add('listing-info__host-avatar--fallback');
-            }}
+          <Avatar
+            src={listing.host.avatar}
+            alt={listing.host.name}
+            initial={listing.host.name.charAt(0)}
           />
         </div>
         <div>
@@ -109,7 +106,7 @@ export default function ListingInfo({ listing }) {
       {/* Description */}
       <div className="listing-info__description">
         <p className="listing-info__description-text">
-          {showMore ? listing.description : descriptionPreview + '...'}
+          {showMore ? listing.description : `${descriptionPreview}...`}
         </p>
         <button
           className="listing-info__show-more"

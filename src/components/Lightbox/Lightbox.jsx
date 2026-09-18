@@ -1,9 +1,19 @@
 import { useEffect, useRef, useCallback } from 'react';
 import './Lightbox.css';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useScrollLock } from '../../hooks/useScrollLock';
 
-export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext, isOpen }) {
+export default function Lightbox({
+  photos,
+  currentIndex,
+  onClose,
+  onPrev,
+  onNext,
+  isOpen,
+}) {
   const closeRef = useRef(null);
+
+  useScrollLock(isOpen);
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -28,13 +38,12 @@ export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add('no-scroll');
-      document.addEventListener('keydown', handleKeyDown);
-      setTimeout(() => closeRef.current?.focus(), 100);
-    }
+    if (!isOpen) return;
+
+    document.addEventListener('keydown', handleKeyDown);
+    closeRef.current?.focus();
+
     return () => {
-      document.body.classList.remove('no-scroll');
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
@@ -53,6 +62,7 @@ export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext
       {/* Header */}
       <div className="lightbox__header">
         <button
+          type="button"
           className="lightbox__close"
           onClick={onClose}
           ref={closeRef}
@@ -63,14 +73,14 @@ export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext
         <div className="lightbox__counter">
           {currentIndex + 1} / {photos.length}
         </div>
-        <div style={{ width: 36 }}></div>
+        <div style={{ width: 36 }} />
       </div>
 
       {/* Photo Container */}
       <div className="lightbox__body">
-        {/* Previous button */}
         {currentIndex > 0 && (
           <button
+            type="button"
             className="lightbox__nav lightbox__nav--prev"
             onClick={onPrev}
             aria-label="Previous photo"
@@ -79,7 +89,6 @@ export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext
           </button>
         )}
 
-        {/* Image */}
         <div className="lightbox__image-container">
           <img
             key={photo.id}
@@ -89,9 +98,9 @@ export default function Lightbox({ photos, currentIndex, onClose, onPrev, onNext
           />
         </div>
 
-        {/* Next button */}
         {currentIndex < photos.length - 1 && (
           <button
+            type="button"
             className="lightbox__nav lightbox__nav--next"
             onClick={onNext}
             aria-label="Next photo"

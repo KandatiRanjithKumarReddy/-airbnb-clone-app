@@ -2,14 +2,19 @@ import { useState, useEffect } from 'react';
 import './Header.css';
 import { Search, Globe, Menu, User } from 'lucide-react';
 
-export default function Header({ onReserveClick }) {
+export default function Header({
+  onReserveClick,
+  price,
+  rating,
+  reviewCount,
+}) {
   const [showStickyNav, setShowStickyNav] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const galleryEnd = document.getElementById('photo-gallery');
-      if (galleryEnd) {
-        const rect = galleryEnd.getBoundingClientRect();
+      const photosEl = document.getElementById('photos-section');
+      if (photosEl) {
+        const rect = photosEl.getBoundingClientRect();
         setShowStickyNav(rect.bottom < 0);
       }
     };
@@ -44,15 +49,15 @@ export default function Header({ onReserveClick }) {
             <button className="header__search-item" type="button">
               <span className="header__search-text">Anywhere</span>
             </button>
-            <span className="header__search-divider" aria-hidden="true"></span>
+            <span className="header__search-divider" aria-hidden="true" />
             <button className="header__search-item" type="button">
               <span className="header__search-text">Any week</span>
             </button>
-            <span className="header__search-divider" aria-hidden="true"></span>
+            <span className="header__search-divider" aria-hidden="true" />
             <button className="header__search-item header__search-item--guests" type="button">
               <span className="header__search-text header__search-text--muted">Add guests</span>
             </button>
-            <button className="header__search-btn" aria-label="Search">
+            <button className="header__search-btn" aria-label="Search" type="button">
               <Search size={16} strokeWidth={2.5} />
             </button>
           </div>
@@ -60,10 +65,10 @@ export default function Header({ onReserveClick }) {
           {/* Right Nav */}
           <nav className="header__nav" aria-label="User navigation">
             <a href="#" className="header__nav-link">Become a host</a>
-            <button className="header__nav-icon" aria-label="Choose language">
+            <button className="header__nav-icon" aria-label="Choose language" type="button">
               <Globe size={18} />
             </button>
-            <button className="header__user-menu" aria-label="User menu">
+            <button className="header__user-menu" aria-label="User menu" type="button">
               <Menu size={18} />
               <div className="header__user-avatar">
                 <User size={18} />
@@ -74,23 +79,43 @@ export default function Header({ onReserveClick }) {
       </header>
 
       {/* Sticky Navigation */}
-      <div className={`sticky-nav ${showStickyNav ? 'sticky-nav--visible' : ''}`} role="navigation" aria-label="Page sections">
+      <div
+        className={`sticky-nav ${showStickyNav ? 'sticky-nav--visible' : ''}`}
+        role="navigation"
+        aria-label="Page sections"
+      >
         <div className="sticky-nav__inner">
           <div className="sticky-nav__tabs">
-            <button className="sticky-nav__tab" onClick={() => scrollToSection('photos-section')}>Photos</button>
-            <button className="sticky-nav__tab" onClick={() => scrollToSection('amenities-section')}>Amenities</button>
-            <button className="sticky-nav__tab" onClick={() => scrollToSection('reviews-section')}>Reviews</button>
-            <button className="sticky-nav__tab" onClick={() => scrollToSection('location-section')}>Location</button>
+            <button type="button" className="sticky-nav__tab" onClick={() => scrollToSection('photos-section')}>
+              Photos
+            </button>
+            <button type="button" className="sticky-nav__tab" onClick={() => scrollToSection('amenities-section')}>
+              Amenities
+            </button>
+            <button type="button" className="sticky-nav__tab" onClick={() => scrollToSection('reviews-section')}>
+              Reviews
+            </button>
+            <button type="button" className="sticky-nav__tab" onClick={() => scrollToSection('location-section')}>
+              Location
+            </button>
           </div>
           <div className="sticky-nav__right">
-            <div className="sticky-nav__price">
-              <span className="sticky-nav__price-amount">₹28,499</span>
-              <span className="sticky-nav__price-label"> for 5 nights</span>
-            </div>
-            <div className="sticky-nav__rating">
-              <span>★ 4.95 · 19 reviews</span>
-            </div>
-            <button className="sticky-nav__reserve" onClick={onReserveClick}>Reserve</button>
+            {price && (
+              <div className="sticky-nav__price">
+                <span className="sticky-nav__price-amount">
+                  {price.currency}{price.total.toLocaleString('en-IN')}
+                </span>
+                <span className="sticky-nav__price-label"> for {price.nights} nights</span>
+              </div>
+            )}
+            {rating && (
+              <div className="sticky-nav__rating">
+                <span>★ {rating} · {reviewCount} reviews</span>
+              </div>
+            )}
+            <button type="button" className="sticky-nav__reserve" onClick={onReserveClick}>
+              Reserve
+            </button>
           </div>
         </div>
       </div>

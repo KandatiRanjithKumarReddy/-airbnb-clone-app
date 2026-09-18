@@ -5,7 +5,7 @@ export default function PhotoGallery({ photos, onShowAllPhotos }) {
   const heroPhotos = photos.slice(0, 5);
 
   return (
-    <section id="photo-gallery" className="photo-gallery" aria-label="Property photos">
+    <section id="photos-section" className="photo-gallery" aria-label="Property photos">
       <div className="photo-gallery__grid">
         {heroPhotos.map((photo, index) => (
           <button

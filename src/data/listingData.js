@@ -39,6 +39,7 @@ export const listingData = {
   // Host
   host: {
     name: "Mirashya Homes",
+    avatar: "https://ui-avatars.com/api/?name=Mirashya+Homes&background=6B8E23&color=fff&size=128",
     yearsHosting: 2,
     isSuperhost: false,
     responseRate: "100%",
